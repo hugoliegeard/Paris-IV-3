@@ -77,3 +77,41 @@ var PremierTrimestre = [
         }
     }
 ];
+
+// -- Je souhaite afficher la liste de mes étudiants.
+
+// -- Créer une boucle pour parcourir mes étudiants.
+w('<ol>');
+    for( let i = 0 ; i < PremierTrimestre.length ; i++ ) {
+
+        let Etudiant = PremierTrimestre[i];
+        l(Etudiant);
+
+        var NombreDeMatieres = 0, SommesDesNotes = 0;
+
+            w('<li>');
+                w(Etudiant.prenom + ' ' + Etudiant.nom);
+                w('<ul>');
+                    for( let matiere in Etudiant.matieres ) {
+                        l(matiere);
+
+                        NombreDeMatieres++;
+                        SommesDesNotes += Etudiant.matieres[matiere];
+
+                        w('<li>');
+                            w(matiere + ' : ' + Etudiant.matieres[matiere]);
+                        w('</li>');
+                    } // -- Fin de la boucle matière
+
+                    w('<li>');
+                        w('<strong>Moyenne Générale : </strong>' + 
+                            ( SommesDesNotes / NombreDeMatieres ).toFixed(2) );
+                    w('</li>');
+
+                w('</ul>');
+            w('</li><br>');
+
+        l('---');  
+    } // -- Fin de la boucle Etudiant
+w('</ol>');
+    
