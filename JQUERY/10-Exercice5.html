@@ -94,7 +94,42 @@
         // -- En attente de jQuery
         $(function() {
             
-            
+            // -- 1. Récupération des articles
+            $.ajax('https://jsonplaceholder.typicode.com/posts')
+            .done(function( articles ) {
+
+                // console.log(articles);
+                // -- 2. On parcours les articles et on les affiche les articles sur la page.
+                $.each(articles, function(index, article) {
+                    
+                    $(`
+                        <section>
+                            <header >
+                                <h1>${article.title}</h1>
+                            </header>
+                            <article>
+                                ${article.body}
+                            </article>
+                        </section>
+                    `).appendTo( $('main') );
+
+                    // -- Récupérer uniquement 10 Articles
+                    if( index === 10 ) {
+                        return false;
+                    }
+
+                }); // -- end $.each
+
+            }); // -- end $.ajax
+
+            // 4. BONUS : Mettre en Place Markjs.io afin de surligner des mots dans les différents articles à l'aide d'un champ input.
+
+            $('#markJS').on('input', function() {
+
+                let keyword = $(this).val();
+                $('section').unmark().mark(keyword);
+
+            });
 
         }); // end jQuery
 
